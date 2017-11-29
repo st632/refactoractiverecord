@@ -37,7 +37,7 @@ class main{
      $record->birthday='1990-11-09';
      $record->gender='male';
      $record->password='123';
-     //$record->save();
+     $record->save();
      echo 'After adding record.<br>';
      accounts::findAll();
      echo '<br>';
@@ -69,12 +69,12 @@ class main{
     accounts::findAll();
     echo '<br>';
      
-   /* echo 'Existing Todos Records.<br>';
+   echo 'Existing Todos Records.<br>';
      todos::findAll();
      echo '<br>';
      
      echo 'Creating new id 20 in todos table.<br>';
-     $record = new todo();
+      $record = new classes\model\todo;
      $record->id='';
      $record->owneremail='qwerty@gmail.com';
      $record->ownerid='18';
@@ -93,7 +93,7 @@ class main{
      
      echo '<br>';
      echo 'updating details of id=20.<br>';
-     $record = new todo();
+     $record = new classes\model\todo;
      $record->id=20;
      $record->owneremail='rps@gmail.com';
      $record->ownerid='19';
@@ -107,14 +107,14 @@ class main{
      echo '<br>';
     
     echo 'To delete id=20 from todos.<br>';
-    $record=new todo();
+     $record = new classes\model\todo;
     $record->id=20;
     $record->delete();
     echo 'After Delete id=20.<br>';
     todos::findAll();
     echo '<br>';
     
-     */
+     
    }
 	 
 	 }

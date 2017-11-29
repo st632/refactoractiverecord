@@ -7,5 +7,6 @@ class accounts extends collection {
     public static function tableName1(){
     $tableName='accounts';
     return $tableName;
+    }
 }
 ?>

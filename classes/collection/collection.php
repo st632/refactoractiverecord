@@ -5,7 +5,7 @@ use classes\collection\accounts;
 use classes\collection\todos;
 use classes\database\dbConn;
 use \PDO;
-use classes\htmldisplay\display;
+use classes\view\display;
 class collection {
     static public function create() {
       $model = new static::$modelName;
@@ -21,29 +21,13 @@ class collection {
         $statement = $db->prepare($sql);
         $statement->execute();
         $class = static::$modelName;
-        $statement->setFetchMode(PDO::FETCH_CLASS, $class);
+        $statement->setFetchMode();
         $recordsSet =  $statement->fetchAll(PDO::FETCH_ASSOC);
         //print_r($recordsSet);
-              echo '<table border=2>';
-          $db1=dbConn::getConnection();
-          $sql1 = 'SHOW COLUMNS FROM '.$tableName;
-          $stmt1 = $db1->prepare($sql1);
-          $stmt1->execute();
-          $headers=$stmt1->fetchAll(PDO::FETCH_COLUMN);
-        
-          foreach($headers as $col){
-              echo "<td>$col</td>";
-              }
-          foreach( $recordsSet as $row) {
-          echo "<tr>";
-          foreach($row as $col){
-            echo "<td>$col</td>";
-            }
-            echo "<tr>";
-          }    
-          echo '</table>';
-        }
-  
+        self::displayTable($recordsSet,$tableName);
+        }     
+              
+              
     static public function findOne($id) {
         $db = dbConn::getConnection();
         $tableName = get_called_class();
@@ -52,9 +36,15 @@ class collection {
         $statement = $db->prepare($sql);
         $statement->execute();
         $class = static::$modelName;
-        $statement->setFetchMode(PDO::FETCH_CLASS, $tableName);
-        $recordsSet =  $statement->fetchAll();
-         echo '<table border=2>';
+        $statement->setFetchMode();
+        $recordsSet =  $statement->fetchAll(PDO::FETCH_ASSOC);
+         self::displayTable($recordsSet,$tableName);
+              
+	}            
+              
+     public static function displayTable($recordsSet,$tableName){
+          $display='';
+          $display.='<table border=2>';
           $db1=dbConn::getConnection();
           $sql1 = 'SHOW COLUMNS FROM '.$tableName;
           $stmt1 = $db1->prepare($sql1);
@@ -62,17 +52,21 @@ class collection {
           $headers=$stmt1->fetchAll(PDO::FETCH_COLUMN);
         
           foreach($headers as $col){
-              echo "<td>$col</td>";
+              $display.="<td>$col</td>";
               }
           foreach( $recordsSet as $row) {
-          echo "<tr>";
+          $display.="<tr>";
           foreach($row as $col){
-            echo "<td>$col</td>";
+            $display.="<td>$col</td>";
             }
-            echo "<tr>";
+            $display.="<tr>";
           }    
-          echo '</table>';
-	}
+          $display.='</table>';
+          echo $display;
+          //display::printThis($display);
+        }
+            
+ 
 }
 
 

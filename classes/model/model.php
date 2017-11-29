@@ -4,7 +4,7 @@ use classes\model\account;
 use classes\model\todo;
 use classes\database\dbConn;
 use \PDO;
-use classes\htmldisplay\display;
+use classes\view\display;
 class model {
     protected $tableName;
     public function save()
@@ -30,6 +30,7 @@ class model {
         $statement = $db->prepare($sql);
         $statement->execute();
         echo 'I just saved record id = ' . $this->id.'<br>';
+        
     }
     private function update() {
       $modelName1=static::$modelName;
