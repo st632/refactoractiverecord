@@ -1,9 +1,21 @@
 <?php
+use classes\database\dbConn;
+use classes\htmldisplay\display;
+use classes\collection\accounts;
+use classes\collection\collection;
+use classes\collection\todos;
+use classes\model\account;
+use classes\model\model;
+use classes\model\todo;
+
+
 class Manage{
   public static function autoload($class){
-    include $class.'.php';
+    $class=str_replace("\\","/",$class).".php";
+    include $class;
   }
 }
+
 spl_autoload_register(array('Manage','autoload'));
 //include 'accounts.php';
 ini_set('display_errors', 'On');
@@ -16,7 +28,7 @@ class main{
      echo '<br>';
      
      echo 'Creating new id 20 in accounts table.<br>';
-     $record = new account();
+     $record = new classes\model\account;
      $record->id='';
      $record->email='dhl@gmail.com';
      $record->fname='def';
@@ -36,7 +48,7 @@ class main{
      
      echo '<br>';
      echo 'updating details of id=20.<br>';
-     $record = new account();
+     $record = new classes\model\account;
      $record->id=20;
      $record->email='cr7@gmail.com';
      $record->fname='cr';
@@ -50,14 +62,14 @@ class main{
      accounts::findOne($id);
      echo '<br>';
       echo 'To delete id=20 from accounts.<br>';
-    $record=new account();
+    $record = new classes\model\account;
     $record->id=20;
     $record->delete();
     echo 'After Delete id=20.<br>';
     accounts::findAll();
     echo '<br>';
      
-    echo 'Existing Todos Records.<br>';
+   /* echo 'Existing Todos Records.<br>';
      todos::findAll();
      echo '<br>';
      
@@ -102,7 +114,7 @@ class main{
     todos::findAll();
     echo '<br>';
     
-     
+     */
    }
 	 
 	 }
