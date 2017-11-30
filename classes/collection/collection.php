@@ -6,7 +6,7 @@ use classes\collection\todos;
 use classes\database\dbConn;
 use \PDO;
 use classes\view\display;
-class collection {
+abstract class collection {
     static public function create() {
       $model = new static::$modelName;
       return $model;
@@ -62,8 +62,8 @@ class collection {
             $display.="<tr>";
           }    
           $display.='</table>';
-          echo $display;
-          //display::printThis($display);
+          //echo $display;
+          display::printThis($display);
         }
             
  
